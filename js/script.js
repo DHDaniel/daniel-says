@@ -1,11 +1,11 @@
 var simon = new SimonSequence();
 
 var is_strict = false; // strict mode
-var sequence_playing = false; // identify when computer is playing its sequence
+var playing = false; // identify when computer is playing its sequence
 var winValue = 20; // value that the sequence must reach to win
 
 // cached objects
-var $length = $("#current-length span");
+var $length = $("#current-length");
 var $reset = $("#reset");
 var $strictToggle = $("#strict-mode-toggle");
 
@@ -31,35 +31,29 @@ function updateLength(len) {
 // the sound that each button makes when pressed. It is also responsible for
 // evaluating wins, and resetting when game finishes/strict mode is on.
 var position = 0;
-$(".buttons button").mousedown(function() {
+$(".buttons button").click(function() {
 
     // not allowed to do anything if the computer is playing the sequence
-    if (sequence_playing) {
+    if (playing) {
         return false;
     }
 
     var val = parseInt($(this).data("val")); // getting value of button pressed
 
-    // sounds
-    soundEffects["sound" + val].play();
+    soundEffects["sound" + val].play(); // starting sound
 
+    $(this).addClass("active"); // adding visual class
 
-});
-
-$(".buttons button").mouseup(function() {
-
-    // not allowed to do anything if the computer is playing the sequence
-    if (sequence_playing) {
-        return false;
-    }
-
-    var val = parseInt($(this).data("val")); // getting value of button pressed
-
-    // playing for at least a hundredth of a second
+    playing = true; // to lock sound so that user can't destroy button with clicks
+    // reference to be passed inside interval
+    var $self = $(this);
+    // playing for at least two hundredths of a second
     setTimeout(function () {
       soundEffects["sound" + val].pause();
       soundEffects["sound" + val].currentTime = 0;
-    }, 100);
+      $self.removeClass("active");
+      playing = false;
+    }, 300);
 
     // game logic - right or wrong
     if (is_strict) {
@@ -92,19 +86,27 @@ $(".buttons button").mouseup(function() {
     // if we've reached the end of the sequence
     if (position == simon.getSequence().length) {
         simon.addToSequence();
-        updateLength(simon.getSequence().length);
+        var seq = simon.getSequence();
+        updateLength(seq.length);
+        playSequence(seq);
         console.log(simon.getSequence());
         position = 0;
     }
+});
+
+$(".buttons button").on("mouseup touchend", function() {
+
+
 });
 
 
 // Reset button which resets the game. Also works as an aid inside other functions
 $reset.click(function() {
     simon.reset();
-    updateLength(simon.getSequence().length);
+    var seq = simon.getSequence();
+    updateLength(seq.length);
     position = 0;
-    console.log(simon.getSequence());
+    playSequence(seq);
 });
 
 // toggle between strict mode and normal mode
@@ -125,25 +127,33 @@ DISPLAYING SEQUENCE FUNCTIONS
 
 function playSequence(seq) {
 
-    sequence_playing = true; // flag to avoid user pressing buttons
-    seq_length = seq.length;
-    counter = 0;
+    playing = true; // flag to avoid user pressing buttons
+    var seq_length = seq.length;
+    var counter = 0;
 
     var intID = setInterval(function() {
 
-        soundEffects["sound" + counter].play();
-        setTimeout(function() {
-            soundEffects["sound" + counter].pause();
-            soundEffects["sound" + counter].currentTime = 0;
-        }, 300);
+        var val = seq[counter];
 
-        counter++;
+        soundEffects["sound" + val].play();
+        var id = "#button" + val;
+        $(id).addClass("active");
+        setTimeout(function() {
+            soundEffects["sound" + val].pause();
+            soundEffects["sound" + val].currentTime = 0;
+            console.log("exec!");
+            $(id).removeClass("active");
+            counter++;
+        }, 400);
+
 
         // clearing interval once list has been iterated over
-        if (counter == seq_length) {
-            sequence_playing = false;
+        if (counter == seq_length - 1) {
+            playing = false;
             clearInterval(intID);
         }
 
-    }, 500);
+    }, 700);
 }
+
+playSequence(simon.getSequence());

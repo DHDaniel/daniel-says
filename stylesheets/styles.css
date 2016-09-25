@@ -1,39 +1,61 @@
-/* line 7, ../sass/styles.scss */
-.buttons button {
+/* Colours */
+/* Dimensions */
+/* Helper functions (yes - SASS FUNCTIONS! :D) */
+/* line 17, ../sass/styles.scss */
+#navbar [class*="col-"] {
+  height: 80px;
+  background-color: #bbb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* line 28, ../sass/styles.scss */
+.buttons .button-wrapper {
   height: 100px;
-  width: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* line 36, ../sass/styles.scss */
+.buttons button {
+  height: 80%;
+  width: 80%;
   background-color: transparent;
   outline: none;
+  border: none;
+  border-radius: 150px;
 }
-/* line 13, ../sass/styles.scss */
-.buttons button#zero {
+/* line 44, ../sass/styles.scss */
+.buttons button#button0 {
   background-color: #FF4040;
 }
-/* line 16, ../sass/styles.scss */
-.buttons button#zero:hover {
-  background-color: #ff7373;
+/* line 47, ../sass/styles.scss */
+.buttons button#button0.active {
+  background-color: #f30000;
 }
-/* line 21, ../sass/styles.scss */
-.buttons button#one {
+/* line 52, ../sass/styles.scss */
+.buttons button#button1 {
   background-color: #DB37A2;
 }
-/* line 24, ../sass/styles.scss */
-.buttons button#one:hover {
-  background-color: #e362b6;
+/* line 55, ../sass/styles.scss */
+.buttons button#button1.active {
+  background-color: #a71e78;
 }
-/* line 29, ../sass/styles.scss */
-.buttons button#two {
+/* line 60, ../sass/styles.scss */
+.buttons button#button2 {
   background-color: #4A51CF;
 }
-/* line 32, ../sass/styles.scss */
-.buttons button#two:hover {
-  background-color: #7278da;
+/* line 63, ../sass/styles.scss */
+.buttons button#button2.active {
+  background-color: #2b31a2;
 }
-/* line 37, ../sass/styles.scss */
-.buttons button#three {
+/* line 68, ../sass/styles.scss */
+.buttons button#button3 {
   background-color: #38DF38;
 }
-/* line 40, ../sass/styles.scss */
-.buttons button#three:hover {
-  background-color: #64e664;
+/* line 71, ../sass/styles.scss */
+.buttons button#button3.active {
+  background-color: #1cae1c;
 }

@@ -1,45 +1,76 @@
+/* Colours */
+$button-zero: #FF4040;
+$button-one: #DB37A2;
+$button-two: #4A51CF;
+$button-three: #38DF38;
+/* Dimensions */
+$button-height: 80%; // these are relative to the wrapper
+$button-width: 80%;
+$wrapper-height: 100px;
+$wrapper-width: 300px;
+/* Helper functions (yes - SASS FUNCTIONS! :D) */
+@function darkenCustom($color) {
+     @return darken($color, 15%);
+}
 
-$button-zero : #FF4040;
-$button-one : #DB37A2;
-$button-two : #4A51CF;
-$button-three : #38DF38;
-
-.buttons button {
-  height: 100px;
-  width: 300px;
-  background-color: transparent;
-  outline: none;
-
-  &#zero {
-    background-color: $button-zero;
-
-    &:hover {
-      background-color: lighten($button-zero, 10%);
-    }
+#navbar {
+  [class*="col-"] {
+    height: 80px;
+    background-color: #bbb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+}
 
-  &#one {
-    background-color: $button-one;
+.buttons {
 
-    &:hover {
-      background-color: lighten($button-one, 10%);
+    .button-wrapper {
+      height: $wrapper-height;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-  }
 
-  &#two {
-    background-color: $button-two;
+    button {
+        height: $button-height;
+        width: $button-width;
+        background-color: transparent;
+        outline: none;
+        border: none;
+        border-radius: 150px;
 
-    &:hover {
-      background-color: lighten($button-two, 10%);
+        &#button0 {
+            background-color: $button-zero;
+
+            &.active {
+                background-color: darkenCustom($button-zero);
+            }
+        }
+
+        &#button1 {
+            background-color: $button-one;
+
+            &.active {
+                background-color: darkenCustom($button-one);
+            }
+        }
+
+        &#button2 {
+            background-color: $button-two;
+
+            &.active {
+                background-color: darkenCustom($button-two);
+            }
+        }
+
+        &#button3 {
+            background-color: $button-three;
+
+            &.active {
+                background-color: darkenCustom($button-three);
+            }
+        }
     }
-  }
-
-  &#three {
-    background-color: $button-three;
-
-    &:hover {
-      background-color: lighten($button-three, 10%);
-    }
-  }
-
 }
