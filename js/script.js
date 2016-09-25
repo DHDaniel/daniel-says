@@ -1,13 +1,14 @@
 var simon = new SimonSequence();
 
 var is_strict = false; // strict mode
-var playing = false; // identify when computer is playing its sequence
+var playing = true; // identify when computer is playing its sequence
 var winValue = 20; // value that the sequence must reach to win
 
 // cached objects
 var $length = $("#current-length");
 var $reset = $("#reset");
 var $strictToggle = $("#strict-mode-toggle");
+var $notifications = $("#notifications");
 
 // sound effects
 soundEffects = {
@@ -17,14 +18,18 @@ soundEffects = {
     sound3: new Audio("http://www.jetcityorange.com/musical-notes/D4-293.66.mp3")
 };
 
-console.log(simon.getSequence());
-
 
 // helper functions
 function updateLength(len) {
     $length.html(len);
 }
 
+function displayNotif(message) {
+  $notifications.html(message);
+  setTimeout(function () {
+    $notifications.html("");
+  }, 3000);
+}
 
 
 // USER GAME LOGIC - this code takes care of validating user input, and playing
@@ -58,26 +63,25 @@ $(".buttons button").click(function() {
     // game logic - right or wrong
     if (is_strict) {
         if (simon.checkValue(val, position)) {
-            console.log("correct!");
             position++;
         } else {
-            console.log("wrong. try again.");
+            displayNotif("Wrong. Try again.");
             $reset.click();
             position = 0;
         }
     } else {
         if (simon.checkValue(val, position)) {
-            console.log("correct!");
             position++;
         } else {
-            console.log("wrong. try again.");
+            displayNotif("Wrong. Try again.");
+            playSequence(simon.getSequence());
             position = 0;
         }
     }
 
     // checking for wins
     if (position == winValue) {
-        console.log("You've won! Play again.");
+        displayNotif("You've won! Play again.");
         $reset.click();
         position = 0;
         return;
@@ -89,7 +93,6 @@ $(".buttons button").click(function() {
         var seq = simon.getSequence();
         updateLength(seq.length);
         playSequence(seq);
-        console.log(simon.getSequence());
         position = 0;
     }
 });
@@ -107,6 +110,8 @@ $reset.click(function() {
     updateLength(seq.length);
     position = 0;
     playSequence(seq);
+
+    $(this).html("Reset");
 });
 
 // toggle between strict mode and normal mode
@@ -127,6 +132,7 @@ DISPLAYING SEQUENCE FUNCTIONS
 
 function playSequence(seq) {
 
+  setTimeout(function () {
     playing = true; // flag to avoid user pressing buttons
     var seq_length = seq.length;
     var counter = 0;
@@ -154,6 +160,6 @@ function playSequence(seq) {
         }
 
     }, 700);
-}
+  }, 500);
 
-playSequence(simon.getSequence());
+}

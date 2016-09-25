@@ -1,76 +1,205 @@
+/* Imports */
+@import 'https://fonts.googleapis.com/css?family=Alfa+Slab+One';
+
+
 /* Colours */
-$button-zero: #FF4040;
-$button-one: #DB37A2;
-$button-two: #4A51CF;
-$button-three: #38DF38;
+$button-zero: #a30000;
+$button-one: #a88c00;
+$button-two: #242989;
+$button-three: #137213;
+
+$navigation-color: #C5C5C5;
+
+$background-color: #F4F4F4;
+
 /* Dimensions */
-$button-height: 80%; // these are relative to the wrapper
-$button-width: 80%;
+$button-height: 75%; // these are relative to the wrapper
+$button-width: 75%;
 $wrapper-height: 100px;
 $wrapper-width: 300px;
 /* Helper functions (yes - SASS FUNCTIONS! :D) */
-@function darkenCustom($color) {
-     @return darken($color, 15%);
+@function lightenCustom($color) {
+     @return lighten($color, 30%);
 }
 
+html, body {
+  background-color: $background-color;
+  font-family: "Alfa Slab One", sans-serif;
+}
+
+
 #navbar {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+
+  h2 {
+    font-size: 60px;
+  }
+
+
   [class*="col-"] {
     height: 80px;
-    background-color: #bbb;
+    background-color: $navigation-color;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 }
 
-.buttons {
+.button-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: none;
 
-    .button-wrapper {
-      height: $wrapper-height;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+  .buttons {
+
+  width: 100%;
+
+      .button-wrapper {
+        height: $wrapper-height;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      button {
+          height: $button-height;
+          width: $button-width;
+          background-color: transparent;
+          outline: none;
+          border: none;
+          border-radius: 150px;
+
+          transition: transform 0.2s ease-in-out;
+
+          &.active {
+            transform: scale(1.2);
+          }
+
+
+          &#button0 {
+              background-color: $button-zero;
+
+              &.active {
+                  background-color: lightenCustom($button-zero);
+              }
+          }
+
+          &#button1 {
+              background-color: $button-one;
+
+              &.active {
+                  background-color: lightenCustom($button-one);
+              }
+          }
+
+          &#button2 {
+              background-color: $button-two;
+
+              &.active {
+                  background-color: lightenCustom($button-two);
+              }
+          }
+
+          &#button3 {
+              background-color: $button-three;
+
+              &.active {
+                  background-color: lightenCustom($button-three);
+              }
+          }
+      }
+  }
+}
+
+
+.controls {
+
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 75px;
+
+  background-color: $navigation-color;
+
+  button {
+    background-color: darken($navigation-color, 20%);
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+
+    width: 80px;
+
+    &:focus {
+      outline: none;
     }
 
-    button {
-        height: $button-height;
-        width: $button-width;
-        background-color: transparent;
-        outline: none;
-        border: none;
-        border-radius: 150px;
-
-        &#button0 {
-            background-color: $button-zero;
-
-            &.active {
-                background-color: darkenCustom($button-zero);
-            }
-        }
-
-        &#button1 {
-            background-color: $button-one;
-
-            &.active {
-                background-color: darkenCustom($button-one);
-            }
-        }
-
-        &#button2 {
-            background-color: $button-two;
-
-            &.active {
-                background-color: darkenCustom($button-two);
-            }
-        }
-
-        &#button3 {
-            background-color: $button-three;
-
-            &.active {
-                background-color: darkenCustom($button-three);
-            }
-        }
+    &#current-length {
+      margin: 8px auto 0px;
+      display: block;
     }
+
+    &#reset {
+      height: 55px;
+
+      &:hover {
+        background-color: #FF8D2B;
+      }
+    }
+  }
+
+  #notifications {
+    font-size: 18px;
+  }
+
+  [class*="col-"] {
+    text-align: center;
+    margin: 10px 0px;
+    height: 100%;
+  }
+}
+
+/* On-off switch - taken from proto.io */
+.onoffswitch {
+    position: relative; width: 55px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    margin: 10px auto 0px;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    height: 20px; padding: 0; line-height: 20px;
+    border: 0px solid #FFFFFF; border-radius: 30px;
+    background-color: #9E9E9E;
+}
+.onoffswitch-label:before {
+    content: "";
+    display: block; width: 30px; margin: -5px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 31px;
+    border-radius: 30px;
+    box-shadow: 0 6px 12px 0px #757575;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label {
+    background-color: #42A5F5;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label, .onoffswitch-checkbox:checked + .onoffswitch-label:before {
+   border-color: #42A5F5;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label:before {
+    right: 0px;
+    background-color: #2196F3;
+    box-shadow: 3px 6px 18px 0px rgba(0, 0, 0, 0.2);
 }
