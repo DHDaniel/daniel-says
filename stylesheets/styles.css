@@ -1,0 +1,39 @@
+/* line 7, ../sass/styles.scss */
+.buttons button {
+  height: 100px;
+  width: 300px;
+  background-color: transparent;
+  outline: none;
+}
+/* line 13, ../sass/styles.scss */
+.buttons button#zero {
+  background-color: #FF4040;
+}
+/* line 16, ../sass/styles.scss */
+.buttons button#zero:hover {
+  background-color: #ff7373;
+}
+/* line 21, ../sass/styles.scss */
+.buttons button#one {
+  background-color: #DB37A2;
+}
+/* line 24, ../sass/styles.scss */
+.buttons button#one:hover {
+  background-color: #e362b6;
+}
+/* line 29, ../sass/styles.scss */
+.buttons button#two {
+  background-color: #4A51CF;
+}
+/* line 32, ../sass/styles.scss */
+.buttons button#two:hover {
+  background-color: #7278da;
+}
+/* line 37, ../sass/styles.scss */
+.buttons button#three {
+  background-color: #38DF38;
+}
+/* line 40, ../sass/styles.scss */
+.buttons button#three:hover {
+  background-color: #64e664;
+}

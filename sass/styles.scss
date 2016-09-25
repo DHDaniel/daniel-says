@@ -1,0 +1,45 @@
+
+$button-zero : #FF4040;
+$button-one : #DB37A2;
+$button-two : #4A51CF;
+$button-three : #38DF38;
+
+.buttons button {
+  height: 100px;
+  width: 300px;
+  background-color: transparent;
+  outline: none;
+
+  &#zero {
+    background-color: $button-zero;
+
+    &:hover {
+      background-color: lighten($button-zero, 10%);
+    }
+  }
+
+  &#one {
+    background-color: $button-one;
+
+    &:hover {
+      background-color: lighten($button-one, 10%);
+    }
+  }
+
+  &#two {
+    background-color: $button-two;
+
+    &:hover {
+      background-color: lighten($button-two, 10%);
+    }
+  }
+
+  &#three {
+    background-color: $button-three;
+
+    &:hover {
+      background-color: lighten($button-three, 10%);
+    }
+  }
+
+}
