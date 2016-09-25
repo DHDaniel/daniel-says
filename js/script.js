@@ -2,11 +2,12 @@
 
 var simon = new SimonSequence();
 
-var is_strict = true; // strict mode
+var is_strict = false; // strict mode
 var winValue = 5; // value that the sequence must reach to win
 
 var $length = $("#current-length span");
 var $reset = $("#reset");
+var $strictToggle = $("#strict-mode-toggle");
 
 console.log(simon.getSequence());
 
@@ -65,4 +66,14 @@ $reset.click(function () {
   updateLength(simon.getSequence().length);
   position = 0;
   console.log(simon.getSequence());
-})
+});
+
+$strictToggle.click(function () {
+  is_strict = !is_strict;
+  $reset.click();
+  if (is_strict) {
+    $(this).find("span").html("ON");
+  } else {
+    $(this).find("span").html("OFF");
+  }
+});
