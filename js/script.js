@@ -2,7 +2,7 @@ var simon = new SimonSequence();
 
 var is_strict = false; // strict mode
 var playing = true; // identify when computer is playing its sequence
-var winValue = 20; // value that the sequence must reach to win
+var winValue = 5; // value that the sequence must reach to win
 
 // cached objects
 var $length = $("#current-length");
@@ -15,7 +15,17 @@ soundEffects = {
     sound0: new Audio("http://www.jetcityorange.com/musical-notes/A3-220.0.mp3"),
     sound1: new Audio("http://www.jetcityorange.com/musical-notes/C4-261.63.mp3"),
     sound2: new Audio("http://www.jetcityorange.com/musical-notes/E4-329.63.mp3"),
-    sound3: new Audio("http://www.jetcityorange.com/musical-notes/D4-293.66.mp3")
+    sound3: new Audio("http://www.jetcityorange.com/musical-notes/D4-293.66.mp3"),
+    error: new Audio("sounds/error.mp3"),
+
+    /*
+    Title: Winning Triumphal Fanfare
+    About: A brief victorious trumpet fanfare suitable for winning a game. big thanks to john stracke for posting this awesome sound!
+    Uploaded: 05.27.11
+    License: Attribution 3.0 (https://creativecommons.org/licenses/by/3.0/legalcode)
+    Recorded by John Stracke
+    */
+    success: new Audio("sounds/success.mp3")
 };
 
 
@@ -29,6 +39,14 @@ function displayNotif(message) {
   setTimeout(function () {
     $notifications.html("");
   }, 3000);
+}
+
+function playSound(sound, time) {
+  soundEffects[sound].play();
+  setTimeout(function () {
+    soundEffects[sound].pause();
+    soundEffects[sound].currentTime = 0;
+  }, time);
 }
 
 
@@ -66,6 +84,7 @@ $(".buttons button").click(function() {
             position++;
         } else {
             displayNotif("Wrong. Try again.");
+            playSound("error", 1000);
             $reset.click();
             position = 0;
         }
@@ -74,6 +93,7 @@ $(".buttons button").click(function() {
             position++;
         } else {
             displayNotif("Wrong. Try again.");
+            playSound("error", 1000);
             playSequence(simon.getSequence());
             position = 0;
         }
@@ -82,6 +102,7 @@ $(".buttons button").click(function() {
     // checking for wins
     if (position == winValue) {
         displayNotif("You've won! Play again.");
+        playSound("success", 4000);
         $reset.click();
         position = 0;
         return;
@@ -147,7 +168,6 @@ function playSequence(seq) {
         setTimeout(function() {
             soundEffects["sound" + val].pause();
             soundEffects["sound" + val].currentTime = 0;
-            console.log("exec!");
             $(id).removeClass("active");
             counter++;
         }, 400);
