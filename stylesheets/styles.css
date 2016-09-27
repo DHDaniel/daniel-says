@@ -69,7 +69,7 @@ html, body {
 }
 /* line 83, ../sass/styles.scss */
 .button-container .buttons .button-wrapper {
-  height: 100px;
+  height: 80px;
   width: 100%;
   display: flex;
   justify-content: center;

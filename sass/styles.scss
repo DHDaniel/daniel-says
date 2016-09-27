@@ -15,8 +15,8 @@ $background-color: #F4F4F4;
 /* Dimensions */
 $button-height: 75%; // these are relative to the wrapper
 $button-width: 75%;
-$wrapper-height: 100px;
-$wrapper-width: 300px;
+$wrapper-height: 80px;
+$wrapper-width: 280px;
 /* Helper functions (yes - SASS FUNCTIONS! :D) */
 @function lightenCustom($color) {
      @return lighten($color, 30%);
