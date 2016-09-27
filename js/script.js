@@ -2,7 +2,7 @@ var simon = new SimonSequence();
 
 var is_strict = false; // strict mode
 var playing = true; // identify when computer is playing its sequence
-var winValue = 5; // value that the sequence must reach to win
+var winValue = 20; // value that the sequence must reach to win
 
 // cached objects
 var $length = $("#current-length");
@@ -12,10 +12,10 @@ var $notifications = $("#notifications");
 
 // sound effects
 soundEffects = {
-    sound0: new Audio("http://www.jetcityorange.com/musical-notes/A3-220.0.mp3"),
-    sound1: new Audio("http://www.jetcityorange.com/musical-notes/C4-261.63.mp3"),
-    sound2: new Audio("http://www.jetcityorange.com/musical-notes/E4-329.63.mp3"),
-    sound3: new Audio("http://www.jetcityorange.com/musical-notes/D4-293.66.mp3"),
+    sound0: new Audio("sounds/button0.mp3"),
+    sound1: new Audio("sounds/button1.mp3"),
+    sound2: new Audio("sounds/button2.mp3"),
+    sound3: new Audio("sounds/button3.mp3"),
     error: new Audio("sounds/error.mp3"),
 
     /*
@@ -49,6 +49,14 @@ function playSound(sound, time) {
   }, time);
 }
 
+function addColour(colorClass) {
+  $("body").addClass(colorClass);
+}
+
+function removeColour(colorClass) {
+  $("body").removeClass(colorClass);
+}
+
 
 // USER GAME LOGIC - this code takes care of validating user input, and playing
 // the sound that each button makes when pressed. It is also responsible for
@@ -66,6 +74,7 @@ $(".buttons button").click(function() {
     soundEffects["sound" + val].play(); // starting sound
 
     $(this).addClass("active"); // adding visual class
+    addColour("button" + val + "-colour"); // color for body and R
 
     playing = true; // to lock sound so that user can't destroy button with clicks
     // reference to be passed inside interval
@@ -75,6 +84,7 @@ $(".buttons button").click(function() {
       soundEffects["sound" + val].pause();
       soundEffects["sound" + val].currentTime = 0;
       $self.removeClass("active");
+      removeColour("button" + val + "-colour");
       playing = false;
     }, 300);
 
@@ -165,10 +175,12 @@ function playSequence(seq) {
         soundEffects["sound" + val].play();
         var id = "#button" + val;
         $(id).addClass("active");
+        addColour("button" + val + "-colour");
         setTimeout(function() {
             soundEffects["sound" + val].pause();
             soundEffects["sound" + val].currentTime = 0;
             $(id).removeClass("active");
+            removeColour("button" + val + "-colour");
             counter++;
         }, 400);
 
